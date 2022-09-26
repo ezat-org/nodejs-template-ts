@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { initDotEnv, readEnv } from '../utils/utils';
+import { initDotEnv, readEnv } from '../utils/common';
 
 @Injectable()
 export class EnvStore {
