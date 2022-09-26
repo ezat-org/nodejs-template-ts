@@ -25,6 +25,6 @@ const logModule = LoggerModule.forRoot({
   imports: [logModule],
   controllers: [],
   providers: [EnvStore],
-  exports: [],
+  exports: [EnvStore],
 })
 export class CommonModule {}

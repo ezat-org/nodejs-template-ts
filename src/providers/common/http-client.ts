@@ -19,8 +19,6 @@ export class HttpClient {
     handleSuccess: any = HttpClient.defaultHandleSuccess,
     handleError: any = HttpClient.defaultHandleError,
   ) {
-    console.log('Logger: %o', HttpClient.logger);
-
     const client = axios.create({
       headers: { 'Content-Type': 'application/json', ...headers },
     });
