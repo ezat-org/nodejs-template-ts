@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { initDotEnv, readEnv } from '../utils/common';
+import { initDotEnv, readEnv, readEnvArray } from '../utils/common';
 
 @Injectable()
 export class EnvStore {
@@ -9,6 +9,7 @@ export class EnvStore {
   // service
   readonly env: string = readEnv('ENV');
   readonly port: string = readEnv('PORT');
+  readonly corsOrigins: string[] = readEnvArray('CORS_ORIGINS');
 
   // database
   readonly dbHost: string = readEnv('DATABASE_HOST');
