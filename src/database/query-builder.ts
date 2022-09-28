@@ -1,4 +1,4 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
 export const createUpdatedAtFunctionTrigger = (tableName) =>
   `CREATE TRIGGER ${tableName}_updated_at
@@ -24,15 +24,11 @@ export const createPositiveNumberConstraint = (tableName, columnName) =>
 
 export const dropEnum = (name) => `DROP TYPE ${name} IF EXISTS;`;
 
-export const dropTableIfExistsAndEmpty = async (
-  knex: Knex,
-  tableName: string,
-  force = false,
-) => {
+export const dropTableIfExistsAndEmpty = async (knex: Knex, tableName: string, force = false) => {
   const tableExists = await knex.schema.hasTable(tableName);
   if (!tableExists) return;
   if (!force) {
-    const count = (await knex(tableName).count('*'))[0].count;
+    const count = (await knex(tableName).count("*"))[0].count;
     if (count > 0) throw new Error(`Dropping non empty table - ${tableName}`);
   }
   return await knex.schema.dropTableIfExists(tableName);
@@ -42,5 +38,5 @@ export const dropConstraintIfExist = (tableName, constraint) =>
   `ALTER TABLE ${tableName} DROP CONSTRAINT IF EXISTS ${constraint};`;
 
 export const uuid = (knex: Knex) => {
-  return knex.raw('uuid_generate_v4()');
+  return knex.raw("uuid_generate_v4()");
 };

@@ -1,4 +1,4 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.raw(
@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
         END;
         ';
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-    `,
+    `
   );
 }
 

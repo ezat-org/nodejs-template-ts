@@ -1,6 +1,6 @@
-import { Model } from 'objection';
-import { Asset } from './asset.model';
-import { User } from './user.model';
+import { Model } from "objection";
+import { Asset } from "./asset.model";
+import { User } from "./user.model";
 
 /**
  * Model for asset_forwarding table
@@ -25,11 +25,11 @@ export class AssetForwarding extends Model {
   forwardAsset!: Asset;
 
   static get tableName() {
-    return 'assetForwarding';
+    return "assetForwarding";
   }
 
   static get idColumn() {
-    return 'id';
+    return "id";
   }
 
   // Defines relations with other models
@@ -40,26 +40,26 @@ export class AssetForwarding extends Model {
         modelClass: User,
         relation: Model.BelongsToOneRelation,
         join: {
-          from: 'assetForwarding.userId',
-          to: 'user.id',
-        },
+          from: "assetForwarding.userId",
+          to: "user.id"
+        }
       },
       depositAsset: {
         modelClass: Asset,
         relation: Model.BelongsToOneRelation,
         join: {
-          from: 'assetForwarding.depositAssetCode',
-          to: 'asset.code',
-        },
+          from: "assetForwarding.depositAssetCode",
+          to: "asset.code"
+        }
       },
       forwardAsset: {
         modelClass: Asset,
         relation: Model.BelongsToOneRelation,
         join: {
-          from: 'assetForwarding.forwardAssetCode',
-          to: 'asset.code',
-        },
-      },
+          from: "assetForwarding.forwardAssetCode",
+          to: "asset.code"
+        }
+      }
     };
   }
 }
@@ -67,11 +67,11 @@ export class AssetForwarding extends Model {
 // Define model specific data type
 export namespace AssetForwarding {
   export enum Status {
-    VALID = 'VALID',
-    EXPIRED = 'EXPIRED',
+    VALID = "VALID",
+    EXPIRED = "EXPIRED"
   }
 
   export enum Provider {
-    CRYPTO_API = 'CRYPTO_API',
+    CRYPTO_API = "CRYPTO_API"
   }
 }

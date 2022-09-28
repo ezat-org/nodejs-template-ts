@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import { Model } from "objection";
 
 /**
  * Model for asset table
@@ -12,25 +12,22 @@ export class Asset extends Model {
   updatedAt!: Date;
 
   static get tableName() {
-    return 'asset';
+    return "asset";
   }
 
   static get idColumn() {
-    return 'code';
+    return "code";
   }
 
   isCrypto() {
-    return (
-      this.type === Asset.Type.CRYPTO_COIN ||
-      this.type === Asset.Type.CRYPTO_TOKEN
-    );
+    return this.type === Asset.Type.CRYPTO_COIN || this.type === Asset.Type.CRYPTO_TOKEN;
   }
 }
 
 // Define model specific data type
 export namespace Asset {
   export enum Type {
-    CRYPTO_COIN = 'CRYPTO_COIN',
-    CRYPTO_TOKEN = 'CRYPTO_TOKEN',
+    CRYPTO_COIN = "CRYPTO_COIN",
+    CRYPTO_TOKEN = "CRYPTO_TOKEN"
   }
 }

@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import { Model } from "objection";
 
 /**
  * Model for user table
@@ -10,10 +10,10 @@ export class User extends Model {
   updatedAt!: Date;
 
   static get tableName() {
-    return 'user';
+    return "user";
   }
 
   static get idColumn() {
-    return 'id';
+    return "id";
   }
 }

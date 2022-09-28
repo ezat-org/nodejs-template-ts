@@ -1,5 +1,5 @@
-import { Controller, Get, HttpCode, Logger } from '@nestjs/common';
-import { AppService } from '../providers/services/app.service';
+import { Controller, Get, HttpCode, Logger } from "@nestjs/common";
+import { AppService } from "../provider/service/app.service";
 
 @Controller()
 export class AppController {
@@ -9,13 +9,13 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    this.logger.log('Hello!');
+    this.logger.log("Hello!");
     return this.appService.getHello();
   }
 
-  @Get('/health')
+  @Get("/health")
   @HttpCode(200)
   healthcheck(): string {
-    return 'Success';
+    return "Success";
   }
 }

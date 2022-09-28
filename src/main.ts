@@ -1,12 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import * as cookieParser from 'cookie-parser';
-import helmet from 'helmet';
-import Knex from 'knex';
-import { Logger } from 'nestjs-pino';
-import { knexSnakeCaseMappers, Model } from 'objection';
-import knexConfig from '../knexfile';
-import { EnvStore } from './model/env-store';
-import { AppModule } from './modules/app.module';
+import { NestFactory } from "@nestjs/core";
+import * as cookieParser from "cookie-parser";
+import helmet from "helmet";
+import Knex from "knex";
+import { Logger } from "nestjs-pino";
+import { knexSnakeCaseMappers, Model } from "objection";
+import knexConfig from "../knexfile";
+import { EnvStore } from "./model/env-store";
+import { AppModule } from "./module/app.module";
 
 async function bootstrap() {
   // init dotenv
@@ -18,7 +18,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
-    cors: { origin: envStore.corsOrigins },
+    cors: { origin: envStore.corsOrigins }
   });
   // use pino logger instead of default logger
   app.useLogger(app.get(Logger));

@@ -1,10 +1,10 @@
-import { Injectable, Logger, Scope } from '@nestjs/common';
+import { Injectable, Logger, Scope } from "@nestjs/common";
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosRequestHeaders,
-  AxiosResponse,
-} from 'axios';
+  AxiosResponse
+} from "axios";
 
 /**
  * HTTP request client
@@ -17,10 +17,10 @@ export class HttpClient {
   constructor(
     headers?: AxiosRequestHeaders,
     handleSuccess: any = HttpClient.defaultHandleSuccess,
-    handleError: any = HttpClient.defaultHandleError,
+    handleError: any = HttpClient.defaultHandleError
   ) {
     const client = axios.create({
-      headers: { 'Content-Type': 'application/json', ...headers },
+      headers: { "Content-Type": "application/json", ...headers }
     });
     client.interceptors.request.use(this.logRequest);
     client.interceptors.response.use(this.logResponse);
@@ -31,10 +31,10 @@ export class HttpClient {
 
   async get(url: string, config?: AxiosRequestConfig) {
     const response = this.client.request({
-      method: 'GET',
+      method: "GET",
       url,
-      responseType: 'json',
-      ...config,
+      responseType: "json",
+      ...config
     });
     // console.log('Response promise: %o', response);
     return response;
@@ -42,51 +42,51 @@ export class HttpClient {
 
   async patch(url: string, body: any, config?: AxiosRequestConfig) {
     return this.client.request({
-      method: 'PATCH',
+      method: "PATCH",
       url,
-      responseType: 'json',
+      responseType: "json",
       data: body,
-      ...config,
+      ...config
     });
   }
 
   async post(url: string, body: any, config?: AxiosRequestConfig) {
     return this.client.request({
-      method: 'POST',
+      method: "POST",
       url,
-      responseType: 'json',
+      responseType: "json",
       data: body,
-      ...config,
+      ...config
     });
   }
 
   async delete(url: string, body: any, config?: AxiosRequestConfig) {
     return this.client.request({
-      method: 'DELETE',
+      method: "DELETE",
       url,
-      responseType: 'json',
+      responseType: "json",
       data: body,
-      ...config,
+      ...config
     });
   }
 
   async put(url: string, body: any, config?: AxiosRequestConfig) {
     return this.client.request({
-      method: 'PUT',
+      method: "PUT",
       url,
-      responseType: 'json',
+      responseType: "json",
       data: body,
-      ...config,
+      ...config
     });
   }
 
   private logRequest(request: AxiosRequestConfig) {
-    HttpClient.logger.log('Sending request to: %s', request?.url);
+    HttpClient.logger.log("Sending request to: %s", request?.url);
     return request;
   }
 
   private logResponse(response: AxiosResponse) {
-    HttpClient.logger.log('Received response data: %o', response?.data);
+    HttpClient.logger.log("Received response data: %o", response?.data);
     return response;
   }
 
