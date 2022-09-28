@@ -1,23 +1,23 @@
-import { EnvStore } from './src/model/env-store';
-
-const envStore = new EnvStore();
+import envStore from "./src/model/env-store";
 
 const connection = {
   host: envStore.dbHost,
   port: envStore.dbPort,
   database: envStore.dbName,
   user: envStore.dbUser,
-  password: envStore.dbPassword,
+  password: envStore.dbPassword
 };
 
 export default {
-  client: 'pg',
+  client: "pg",
   connection,
   pool: { min: 5, max: 30 },
   migrations: {
-    directory: './src/database/migrations',
+    directory: "./src/database/migrations",
+    schemaName: envStore.dbSchema
   },
   seeds: {
-    directory: './src/database/seeds',
-  },
+    directory: "./src/database/seeds",
+    schemaName: envStore.dbSchema
+  }
 };

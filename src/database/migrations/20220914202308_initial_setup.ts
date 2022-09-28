@@ -1,8 +1,9 @@
 import { Knex } from "knex";
+import envStore from "../../model/env-store";
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.raw(
-    `CREATE OR REPLACE FUNCTION public.set_updated_at_func()
+    `CREATE OR REPLACE FUNCTION ${envStore.dbSchema}.set_updated_at_func()
         RETURNS TRIGGER
         LANGUAGE plpgsql AS
         '
@@ -17,5 +18,5 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.raw(`DROP FUNCTION public.set_updated_at_func();`);
+  return knex.schema.raw(`DROP FUNCTION ${envStore.dbSchema}.set_updated_at_func();`);
 }

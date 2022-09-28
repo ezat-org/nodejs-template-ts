@@ -1,10 +1,10 @@
 import { Knex } from "knex";
 
-export const createUpdatedAtFunctionTrigger = (tableName) =>
+export const createUpdatedAtFunctionTrigger = (tableName, schema = "public") =>
   `CREATE TRIGGER ${tableName}_updated_at
-    BEFORE UPDATE ON "${tableName}"
+    BEFORE UPDATE ON ${schema}.${tableName}
     FOR EACH ROW
-    EXECUTE PROCEDURE set_updated_at_func();`;
+    EXECUTE PROCEDURE ${schema}.set_updated_at_func();`;
 
 export const createTrimAndUpperConstraint = (tableName, columnName) =>
   `ALTER TABLE "${tableName}" ADD CONSTRAINT ${tableName}_${columnName}_trim_and_upper
@@ -24,14 +24,20 @@ export const createPositiveNumberConstraint = (tableName, columnName) =>
 
 export const dropEnum = (name) => `DROP TYPE ${name} IF EXISTS;`;
 
-export const dropTableIfExistsAndEmpty = async (knex: Knex, tableName: string, force = false) => {
-  const tableExists = await knex.schema.hasTable(tableName);
+export const dropTableIfExistsAndEmpty = async (
+  knex: Knex,
+  tableName: string,
+  schema = "public",
+  force = false
+) => {
+  const tableExists = await knex.schema.withSchema(schema).hasTable(tableName);
   if (!tableExists) return;
   if (!force) {
-    const count = (await knex(tableName).count("*"))[0].count;
-    if (count > 0) throw new Error(`Dropping non empty table - ${tableName}`);
+    const count = (await knex(`${schema}.${tableName}`).count("*"))[0].count;
+    if (count > 0)
+      throw new Error(`Dropping non empty table - ${schema}.${tableName} - ${count} rows`);
   }
-  return await knex.schema.dropTableIfExists(tableName);
+  return await knex.schema.dropTable(`${schema}.${tableName}`);
 };
 
 export const dropConstraintIfExist = (tableName, constraint) =>

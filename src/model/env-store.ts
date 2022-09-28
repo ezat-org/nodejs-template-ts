@@ -17,6 +17,7 @@ export class EnvStore {
   readonly dbName: string = readEnv("DATABASE_NAME");
   readonly dbUser: string = readEnv("DATABASE_USER");
   readonly dbPassword: string = readEnv("DATABASE_PASSWORD");
+  readonly dbSchema: string = readEnv("DATABASE_SCHEMA");
 
   isProd() {
     return this.env?.toLowerCase() === "prod";
@@ -30,3 +31,5 @@ export class EnvStore {
     );
   }
 }
+
+export default new EnvStore();

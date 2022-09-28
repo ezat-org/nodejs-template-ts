@@ -5,13 +5,10 @@ import Knex from "knex";
 import { Logger } from "nestjs-pino";
 import { knexSnakeCaseMappers, Model } from "objection";
 import knexConfig from "../knexfile";
-import { EnvStore } from "./model/env-store";
+import envStore from "./model/env-store"; // init dotenv
 import { AppModule } from "./module/app.module";
 
 async function bootstrap() {
-  // init dotenv
-  const envStore = new EnvStore();
-
   // init db connection
   const knex = Knex({ ...knexConfig, ...knexSnakeCaseMappers() });
   Model.knex(knex);
