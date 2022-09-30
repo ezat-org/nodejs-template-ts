@@ -2,8 +2,6 @@ import pino from "pino";
 import { clsProxify } from "cls-proxify";
 import * as dotenv from "dotenv";
 import * as path from "path";
-import { Response } from "express";
-import { HttpStatus } from "@nestjs/common";
 
 export const initDotEnv = () => {
   dotenv.config({

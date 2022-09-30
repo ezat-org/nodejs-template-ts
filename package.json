@@ -34,6 +34,8 @@
     "dotenv": "^16.0.2",
     "express-pino-logger": "^7.0.0",
     "helmet": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.5",
     "knex": "^2.3.0",
     "objection": "^3.0.1",
     "pg": "^8.8.0",

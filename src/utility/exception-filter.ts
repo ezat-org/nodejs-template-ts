@@ -13,14 +13,16 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const { httpAdapter } = this.httpAdapterHost;
 
     const ctx = host.switchToHttp();
+    const ctxResponse = ctx.getResponse();
 
     if (exception instanceof HttpException && exception.getResponse() instanceof ResponseBody) {
-      return httpAdapter.reply(ctx.getResponse(), exception.getResponse(), exception.getStatus());
+      return httpAdapter.reply(ctxResponse, exception.getResponse(), exception.getStatus());
     }
 
     logger.error(exception);
+    ctxResponse.err = exception;
     return httpAdapter.reply(
-      ctx.getResponse(),
+      ctxResponse,
       new ResponseBody({
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: "internal server error",

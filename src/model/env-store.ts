@@ -33,6 +33,10 @@ export class EnvStore {
       this.env?.toLowerCase() === "uat"
     );
   }
+
+  isLocal() {
+    return this.env?.toLowerCase() === "local";
+  }
 }
 
 export default new EnvStore();

@@ -21,14 +21,15 @@ async function bootstrap() {
     logger: false
   });
 
-  const httpAdapter = app.get(HttpAdapterHost);
-  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+  app.use(cookieParser());
+  app.use(helmet());
 
   // Request logger
   app.use(requestIdGenerator, requestIdLogger, requestLogger);
 
-  app.use(cookieParser());
-  app.use(helmet());
+  // Global error handler
+  const httpAdapter = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
   await app.listen(envStore.port).then((_) => logger.info(`Server started on ${envStore.port}`));
 }
