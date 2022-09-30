@@ -2,7 +2,7 @@ import { Model } from "objection";
 
 export class Wallet extends Model {
   id!: string;
-  mainAccountId!: string;
+  publicAccountId!: string;
   type!: Wallet.Type;
   publicKey!: string;
   encryptedPrivateKey!: string[];

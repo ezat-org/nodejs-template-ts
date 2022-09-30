@@ -1,4 +1,4 @@
-import { NestFactory } from "@nestjs/core";
+import { HttpAdapterHost, NestFactory } from "@nestjs/core";
 import * as cookieParser from "cookie-parser";
 import helmet from "helmet";
 import Knex from "knex";
@@ -7,6 +7,8 @@ import knexConfig from "../knexfile";
 import envStore from "./model/env-store"; // init dotenv
 import { AppModule } from "./module/app.module";
 import { requestIdGenerator, requestIdLogger, requestLogger } from "./middleware/logger.middleware";
+import { logger } from "./utility/common";
+import { AllExceptionsFilter } from "./utility/exception-filter";
 
 async function bootstrap() {
   // init db connection
@@ -19,13 +21,16 @@ async function bootstrap() {
     logger: false
   });
 
+  const httpAdapter = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+
   // Request logger
   app.use(requestIdGenerator, requestIdLogger, requestLogger);
 
   app.use(cookieParser());
   app.use(helmet());
 
-  await app.listen(envStore.port);
+  await app.listen(envStore.port).then((_) => logger.info(`Server started on ${envStore.port}`));
 }
 
 bootstrap();

@@ -7,7 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     .withSchema(envStore.dbSchema)
     .createTable("wallet", function (table) {
       table.uuid("id").primary().defaultTo(queryBuilders.uuid(knex));
-      table.uuid("main_account_id").notNullable();
+      table.uuid("public_account_id").notNullable();
       table.string("type").notNullable();
       table.string("public_key").notNullable();
       table.specificType("encrypted_private_key", "text[]").notNullable();

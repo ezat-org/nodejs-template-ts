@@ -19,6 +19,9 @@ export class EnvStore {
   readonly dbPassword: string = readEnv("DATABASE_PASSWORD");
   readonly dbSchema: string = readEnv("DATABASE_SCHEMA");
 
+  // aws
+  readonly awsCognitoAuthUrl: string = readEnv("AWS_COGNITO_AUTH_URL");
+
   isProd() {
     return this.env?.toLowerCase() === "prod";
   }
