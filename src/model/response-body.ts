@@ -5,10 +5,10 @@ import envStore from "./env-store";
 @Injectable()
 export default class ResponseBody {
   readonly statusCode: HttpStatus;
-  readonly message: String;
-  readonly data?: Object;
+  readonly message: string;
+  readonly data?: object;
   readonly error?: unknown;
-  readonly requestId: String;
+  readonly requestId: string;
 
   constructor({
     statusCode,
@@ -18,9 +18,9 @@ export default class ResponseBody {
     req
   }: {
     statusCode: HttpStatus;
-    message: String;
+    message: string;
     req: Request;
-    data?: Object;
+    data?: object;
     error?: unknown;
   }) {
     this.statusCode = statusCode;

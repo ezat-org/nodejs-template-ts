@@ -12,6 +12,7 @@ import axios, {
 @Injectable({ scope: Scope.TRANSIENT })
 export class HttpClient {
   private static readonly logger = new Logger(HttpClient.name);
+
   readonly client: AxiosInstance;
 
   constructor(
@@ -36,7 +37,6 @@ export class HttpClient {
       responseType: "json",
       ...config
     });
-    // console.log('Response promise: %o', response);
     return response;
   }
 

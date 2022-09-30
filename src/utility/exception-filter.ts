@@ -1,10 +1,18 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from "@nestjs/common";
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  HttpStatus,
+  Logger
+} from "@nestjs/common";
 import { HttpAdapterHost } from "@nestjs/core";
 import ResponseBody from "../model/response-body";
-import { logger } from "./common";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
+  private readonly logger = new Logger(AllExceptionsFilter.name);
+
   constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
   catch(exception: unknown, host: ArgumentsHost): void {
@@ -18,8 +26,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     if (exception instanceof HttpException && exception.getResponse() instanceof ResponseBody) {
       return httpAdapter.reply(ctxResponse, exception.getResponse(), exception.getStatus());
     }
-
-    logger.error(exception);
+    this.logger.error(exception);
     ctxResponse.err = exception;
     return httpAdapter.reply(
       ctxResponse,

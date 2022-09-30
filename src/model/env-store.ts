@@ -1,5 +1,17 @@
 import { Injectable } from "@nestjs/common";
-import { initDotEnv, readEnv, readEnvArray } from "../utility/common";
+import { initDotEnv } from "../utility/common";
+
+const readEnv = (key: string): string => {
+  const value = process.env[key];
+  if (!value) throw new Error(`Environment variable ${key} is not provided in .env file`);
+  return value;
+};
+
+const readEnvArray = (key: string): string[] => {
+  const value = process.env[key];
+  if (!value) throw new Error(`Environment variable ${key} is not provided in .env file`);
+  return value.split(",");
+};
 
 @Injectable()
 export class EnvStore {

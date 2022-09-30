@@ -1,19 +1,21 @@
 import {
   Injectable,
   InternalServerErrorException,
+  Logger,
   NestMiddleware,
   UnauthorizedException
 } from "@nestjs/common";
-import { Request, Response, NextFunction } from "express";
-import envStore from "../model/env-store";
-import { HttpClient } from "../provider/common/http-client";
-import { logger } from "../utility/common";
-import ResponseBody from "../model/response-body";
+import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import * as jwkToPem from "jwk-to-pem";
+import envStore from "../model/env-store";
+import ResponseBody from "../model/response-body";
+import { HttpClient } from "../provider/common/http-client";
 
 @Injectable()
 export class TokenAuthenticationMiddleware implements NestMiddleware {
+  private readonly logger = new Logger(TokenAuthenticationMiddleware.name);
+
   async use(req: Request, res: Response, next: NextFunction) {
     const token = req.headers["authorization"];
     if (!token) {
@@ -122,7 +124,9 @@ export class TokenAuthenticationMiddleware implements NestMiddleware {
       );
     });
 
-    logger.info(`Request: ${req.method} ${req.originalUrl} User=${payload.sub} from Cognito token`);
+    this.logger.log(
+      `Request: ${req.method} ${req.originalUrl} User=${payload.sub} from Cognito token`
+    );
 
     // TODO - call permission service
 
