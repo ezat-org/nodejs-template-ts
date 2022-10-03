@@ -1,9 +1,10 @@
 import { Module } from "@nestjs/common";
+import { Request } from "express";
 import { LoggerModule } from "nestjs-pino";
 import { randomUUID } from "node:crypto";
 import { EnvStore } from "../../model/env-store";
 
-const getRequestId = (req) => {
+const generateRequestId = (req: Request) => {
   const reqId = req.get("X-Request-Id") || randomUUID();
   req.requestId = reqId;
   return reqId;
@@ -24,7 +25,7 @@ const loggerModule = LoggerModule.forRoot({
     },
     redact: ['headers["x-api-key"]'],
     quietReqLogger: true,
-    genReqId: getRequestId,
+    genReqId: generateRequestId,
     serializers: {
       req: (req) => ({
         method: req.method,

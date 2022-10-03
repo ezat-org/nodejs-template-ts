@@ -43,7 +43,7 @@ export class TokenAuthenticationMiddleware implements NestMiddleware {
         );
       });
 
-    let pems = {};
+    const pems = {};
     for (let i = 0; i < keys.length; i++) {
       //Convert each key to PEM
       const key_id = keys[i].kid;
