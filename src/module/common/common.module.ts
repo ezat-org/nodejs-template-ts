@@ -32,7 +32,8 @@ const loggerModule = LoggerModule.forRoot({
         url: req.url,
         requestId: req.raw.requestId,
         ip: req.raw.headers["x-forwarded-for"] || req.raw.connection.remoteAddress,
-        body: req.raw.body
+        body: req.raw.body,
+        auth: req.raw.auth
       }),
       res: (res) => ({
         statusCode: res.statusCode

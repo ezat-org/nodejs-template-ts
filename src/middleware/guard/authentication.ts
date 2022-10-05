@@ -17,6 +17,7 @@ import {
 } from "src/model/constant";
 import { EnvStore } from "src/model/env-store";
 import { HttpClient } from "src/provider/common/http-client";
+import "src/type/express";
 
 /**
  * Authenticate incoming requests by either cognito jwt token, or api key
@@ -52,7 +53,7 @@ export class AuthenticationGuard implements CanActivate {
     }
 
     // authenticate with api key
-    if (apiKeys) {
+    if (apiKeys && apiKeys.length > 1) {
       const apiKey = [...apiKeys][0]; // only consider the first key valid
       return await this.apiKeyAuth(req, apiKey);
     }
@@ -122,7 +123,6 @@ export class AuthenticationGuard implements CanActivate {
     );
 
     // TODO: set req params for downstream (eg. authorization, controller) consumption
-
     return true;
   }
 
@@ -132,6 +132,7 @@ export class AuthenticationGuard implements CanActivate {
    */
   private async apiKeyAuth(req: Request, apiKey: string) {
     // TODO: set req params for downstream (eg. authorization, controller) consumption
+
     return true;
   }
 }
